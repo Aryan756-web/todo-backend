@@ -80,11 +80,3 @@ Backend: https://todo-backend-oh0s.onrender.com
 * Connecting React frontend with Express backend
 * Debugging real-world issues (MongoDB, deployment, API errors)
 * Importance of correct environment variables
-
----
-
-## Future Improvements
-
-* Add user authentication
-* Add edit task feature
-* Improve UI design

@@ -1,82 +1,62 @@
-# To-Do List App (MERN)
+# Todo Backend API
 
-## About the Project
+## Setup
 
-This project is a simple full-stack To-Do application built using the MERN stack. The main goal was to understand how frontend and backend communicate using APIs and how data is stored in MongoDB.
+1. Install dependencies
+   npm install
 
-Users can add tasks, mark them as completed, and delete them. All changes are saved in the database and reflected immediately on the UI.
+2. Create a .env file in backend folder
+   PORT=5000
+   MONGO_URI=your_mongodb_connection_string
 
----
-
-## Features
-
-* Add new tasks
-* Mark tasks as complete/incomplete
-* Delete tasks
-* Data stored in MongoDB Atlas
-* UI updates instantly after actions
+3. Run the server
+   npm start
 
 ---
 
-## Tech Stack
+## Base URL
 
-* Frontend: React.js
-* Backend: Node.js, Express.js
-* Database: MongoDB Atlas
+Local:
+http://localhost:5000/api/todos
+
+Deployed:
+https://todo-backend-oh0s.onrender.com/api/todos
 
 ---
 
 ## API Endpoints
 
-* GET /api/todos → get all tasks
-* POST /api/todos → create a task
-* PUT /api/todos/:id → update task
-* DELETE /api/todos/:id → delete task
+GET /
+
+* get all todos
+
+POST /
+
+* create new todo
+* body: { title }
+
+PUT /:id
+
+* update todo
+
+DELETE /:id
+
+* delete todo
+
+GET /search?q=keyword
+
+* search todos
 
 ---
 
-## How to Run Locally
+## Testing
 
-### Backend
-
-1. Go to backend folder
-2. Install dependencies:
-   npm install
-3. Create a `.env` file and add:
-   MONGO_URI=your_mongodb_uri
-4. Start server:
-   npm run dev
+All APIs tested using Postman.
 
 ---
 
-### Frontend
+## Notes
 
-1. Go to frontend folder
-2. Install dependencies:
-   npm install
-3. Start app:
-   npm start
-
----
-
-## Live Links
-
-Frontend: (add your Netlify link here)
-Backend: https://todo-backend-oh0s.onrender.com
-
----
-
-## Challenges Faced
-
-* Initially, data was getting stored in the wrong database (`test`) because I didn’t specify the DB name in the MongoDB URI
-* Faced connection timeout error while deploying on Render, fixed by allowing network access in MongoDB Atlas
-* Had issues connecting frontend and backend at first, especially with API URLs and CORS
-
----
-
-## What I Learned
-
-* How REST APIs work in real projects
-* Connecting React frontend with Express backend
-* Debugging real-world issues (MongoDB, deployment, API errors)
-* Importance of correct environment variables
+* Built using Node.js and Express
+* MongoDB used for database
+* Basic error handling used

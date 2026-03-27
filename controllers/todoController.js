@@ -1,38 +1,39 @@
-const Todo = require("../models/todo");
+const Todo = require("../models/Todo");
 
-// GET ALL TODOS
+// get all todos
 exports.getTodos = async (req, res) => {
   try {
     const todos = await Todo.find();
     res.json(todos);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching todos" });
   }
 };
 
-// CREATE TODO
+// create todo
 exports.createTodo = async (req, res) => {
+  const { title } = req.body;
+
+  if (!title) {
+    return res.status(400).json({ message: "Title required" });
+  }
+
   try {
-    const { title } = req.body;
-
-    if (!title) {
-      return res.status(400).json({ message: "Title is required" });
-    }
-
-    const todo = await Todo.create({ title });
-    res.status(201).json(todo);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const newTodo = new Todo({ title });
+    await newTodo.save();
+    res.status(201).json(newTodo);
+  } catch (error) {
+    res.status(500).json({ message: "Error creating todo" });
   }
 };
 
-// UPDATE TODO
+// update todo
 exports.updateTodo = async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id);
 
     if (!todo) {
-      return res.status(404).json({ message: "Todo not found" });
+      return res.status(404).json({ message: "Not found" });
     }
 
     todo.title = req.body.title || todo.title;
@@ -41,25 +42,34 @@ exports.updateTodo = async (req, res) => {
         ? req.body.completed
         : todo.completed;
 
-    const updated = await todo.save();
-    res.json(updated);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    await todo.save();
+    res.json(todo);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating" });
   }
 };
 
-// DELETE TODO
+// delete todo
 exports.deleteTodo = async (req, res) => {
   try {
-    const todo = await Todo.findById(req.params.id);
+    await Todo.findByIdAndDelete(req.params.id);
+    res.json({ message: "Deleted" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting" });
+  }
+};
 
-    if (!todo) {
-      return res.status(404).json({ message: "Todo not found" });
-    }
+// search todos
+exports.searchTodos = async (req, res) => {
+  const query = req.query.q;
 
-    await todo.deleteOne();
-    res.json({ message: "Todo deleted" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  try {
+    const todos = await Todo.find({
+      title: { $regex: query, $options: "i" },
+    });
+
+    res.json(todos);
+  } catch (error) {
+    res.status(500).json({ message: "Search error" });
   }
 };

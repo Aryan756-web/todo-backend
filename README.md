@@ -1,5 +1,9 @@
 # Todo Backend API
 
+## Learning Notes
+This project was reworked after feedback to improve my understanding of CRUD APIs, React hooks, and frontend-backend integration.
+I tested all routes using Postman and verified full frontend functionality.
+
 ## Setup
 
 1. Install dependencies
@@ -60,3 +64,18 @@ All APIs tested using Postman.
 * Built using Node.js and Express
 * MongoDB used for database
 * Basic error handling used
+
+---
+
+## Postman Testing Screenshots
+
+All API endpoints were tested successfully using Postman.
+
+Screenshots are available inside the `screenshots` folder:
+
+- Get-all.png
+- create-todo.png
+- update-task.png
+- update-status.png
+- search.png
+- delete.png
